@@ -18,6 +18,7 @@ A site to connect users interested in the game, Teamfight Tactics by allowing th
 ## Known Bugs
 
 ## Specs
+![ComponentStructure](./wireframe.png)
 ![ComponentStructure](./tftPlanning.jpg)
 
 
