@@ -5,22 +5,39 @@ export class Icons extends Component {
     super();
 
     this.state = {
-      iconUrls: [],
-      loading: true
+      iconUrls: []
     }
   }
   componentDidMount() {
-    let urls = [];
     let championNames = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'AurelionSol', 'Blitzcrank', 'Brand', 'Braum', 'Chogath', 'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 'Khazix', 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'MissFortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', 'RekSai', 'Rengar', 'Sejuani', 'Shen', 'Shyvana', 'Swain', 'Tristana', 'TwistedFate', 'Varus', 'Vayne', 'Volibear', 'Warwick', 'Yasuo', 'Zed'];
-    
-    championNames.map(champ => {
+    this.getIcons(championNames);
+    this.getChampionData(championNames);
+  }
+
+  getIcons(championNames) {
+    let urls = [];
+
+    championNames.forEach(champ => {
       fetch('https://ddragon.leagueoflegends.com/cdn/9.14.1/img/champion/'+champ+'.png').then(results => {
         urls.push(results.url);
         this.setState({iconUrls: urls});
       });
 
     })
-    console.log(this.state.iconUrls);
+  }
+
+  getChampionData(championNames) {
+    let champions = [];
+    fetch('https://solomid-resources.s3.amazonaws.com/blitz/tft/data/champions.json', {mode: 'no-cors'}).then(results => {
+      console.log(results.body)
+      // console.log(JSON.parse(results));
+      
+      return results;
+      // data.map((champ, index) => {
+      //   console.log(champ[0]);
+      //   // champions.push({})
+      // })
+    })
   }
 
   render() {
