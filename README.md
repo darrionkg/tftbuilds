@@ -18,9 +18,9 @@ A site to connect users interested in the game, Teamfight Tactics by allowing th
 ## Known Bugs
 
 ## Specs
-![ComponentStructure](./tftPlanning.jpg)
-![ComponentStructure](./wireframe1.png)
-![ComponentStructure](./wireframe2.png)
+![ComponentStructure](./wireframes/tftplanning.jpg)
+![ComponentStructure](./wireframes/wireframe1.png)
+![ComponentStructure](./wireframes/wireframe2.png)
 
 
 ## Technologies Used
