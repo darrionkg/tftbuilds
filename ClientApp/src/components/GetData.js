@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 
-export class Icons extends Component {
+export class GetData extends Component {
   constructor() {
     super();
 
     this.state = {
-      iconUrls: []
+      iconUrls: [],
+      itemIcons: []
     }
   }
   componentDidMount() {
@@ -13,6 +14,9 @@ export class Icons extends Component {
     this.getIcons(championNames);
     this.getChampionData();
     this.getItemData();
+    this.getClassData();
+    this.getOriginData();
+    this.getImages();
   }
 
   getIcons(championNames) {
@@ -50,13 +54,49 @@ export class Icons extends Component {
     console.log(items);
   }
 
+  getClassData() {
+    let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+    targetUrl = 'https://solomid-resources.s3.amazonaws.com/blitz/tft/data/classes.json';
+    let classes = {};
+    fetch(proxyUrl + targetUrl).then(results => {
+      return results.json();
+    })
+    .then(data => {
+      Object.assign(classes, data);
+    })
+    console.log(classes);
+  }
+
+  getOriginData() {
+    let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+    targetUrl = 'https://solomid-resources.s3.amazonaws.com/blitz/tft/data/origins.json';
+    let origins = {};
+    fetch(proxyUrl + targetUrl).then(results => {
+      return results.json();
+    })
+    .then(data => {
+      Object.assign(origins, data);
+    })
+    console.log(origins);
+  }
+
+  getImages() {
+    function importAll(r) {
+      return r.keys().map(r);
+    }
+    
+    const itemIcons = importAll(require.context('./../assets/items/baseitems/', false, /\.(png|jpe?g|svg)$/));
+    this.setState({itemIcons: itemIcons});
+  }
+
   render() {
     return (
       <div>
-        <img src={this.state.iconUrls[7]} alt='Rengar'/>
+        <img src={this.state.iconUrls[7]} alt='champion'/>
+        <img src={this.state.itemIcons[0]} alt='item'/>
       </div>
     )
   }
 }
 
-export default Icons
+export default GetData
