@@ -5,10 +5,13 @@ export class GetData extends Component {
     super();
 
     this.state = {
-      iconUrls: [],
-      itemIcons: []
+      items: {},
+      champs: {},
+      champIcons: [],
+      itemIcons: [],
     }
   }
+
   componentDidMount() {
     let championNames = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'AurelionSol', 'Blitzcrank', 'Brand', 'Braum', 'Chogath', 'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 'Khazix', 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'MissFortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', 'RekSai', 'Rengar', 'Sejuani', 'Shen', 'Shyvana', 'Swain', 'Tristana', 'TwistedFate', 'Varus', 'Vayne', 'Volibear', 'Warwick', 'Yasuo', 'Zed'];
     this.getIcons(championNames);
@@ -24,7 +27,7 @@ export class GetData extends Component {
     championNames.forEach(champ => {
       fetch('https://ddragon.leagueoflegends.com/cdn/9.14.1/img/champion/'+champ+'.png').then(results => {
         urls.push(results.url);
-        this.setState({iconUrls: urls});
+        this.setState({champIcons: urls});
       });
     })
   }
@@ -38,6 +41,9 @@ export class GetData extends Component {
     })
     .then(data => {
       Object.assign(champions, data);
+      this.setState({
+        champs: champions
+      })
     })
   }
 
@@ -45,13 +51,12 @@ export class GetData extends Component {
     let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
     targetUrl = 'https://solomid-resources.s3.amazonaws.com/blitz/tft/data/items.json';
     let items = {};
-    fetch(proxyUrl + targetUrl).then(results => {
-      return results.json();
-    })
+    fetch(proxyUrl + targetUrl).then(results => results.json())
     .then(data => {
-      Object.assign(items, data);
+      this.setState({
+        items: data
+      })
     })
-    console.log(items);
   }
 
   getClassData() {
@@ -83,16 +88,15 @@ export class GetData extends Component {
   getImages() {
     function importAll(r) {
       return r.keys().map(r);
-    }
-    
-    const itemIcons = importAll(require.context('./../assets/items/baseitems/', false, /\.(png|jpe?g|svg)$/));
+    }  
+    const itemIcons = importAll(require.context('./../assets/items/', false, /\.(png|jpe?g|svg)$/));
     this.setState({itemIcons: itemIcons});
   }
 
   render() {
     return (
       <div>
-        <img src={this.state.iconUrls[7]} alt='champion'/>
+        <img src={this.state.champIcons[7]} alt='champion'/>
         <img src={this.state.itemIcons[0]} alt='item'/>
       </div>
     )
