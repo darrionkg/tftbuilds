@@ -1,4 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import { Route, Switch } from 'react-router-dom';
+import Team from './Team';
+import TierList from './TierList';
+import Home from './Home';
 
 export class GetData extends Component {
   constructor() {
@@ -96,8 +102,11 @@ export class GetData extends Component {
   render() {
     return (
       <div>
-        <img src={this.state.champIcons[7]} alt='champion'/>
-        <img src={this.state.itemIcons[0]} alt='item'/>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/team' component={Team} />
+          <Route exact path='/tierlist' component={TierList} />
+        </Switch>
       </div>
     )
   }
