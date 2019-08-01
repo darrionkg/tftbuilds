@@ -3,3 +3,8 @@
 html, body {
   font-family: 'Montserrat', sans-serif;
 }
+
+.container {
+  margin: 0;
+  padding: 0;
+}
