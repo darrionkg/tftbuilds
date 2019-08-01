@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import './Team.css';
 import React, { Component } from 'react'
+import originImages from './GetOrigins';
+import classImages from './GetClasses';
+import {Bonuses} from './Bonuses';
 
 export default function Team(props) {
 
@@ -78,7 +81,7 @@ export default function Team(props) {
           <img src={props.champIcons[findImage(champ)]} />
         )}
       </div>
-      <div className='bonus'>Bonuses</div>
+      <div className='bonus'><Bonuses /></div>
       <div className='champs'>
         {props.champIcons.map((champ, index) => 
           <img onClick={() => addToTeam(index)}  src={champ} />
