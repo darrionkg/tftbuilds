@@ -14,10 +14,12 @@ export default class App extends Component {
       champs: {},
       champIcons: [],
       itemIcons: [],
+      userTeam: []
     }
+    this.handleAddToTeam = this.handleAddToTeam.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let championNames = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'AurelionSol', 'Blitzcrank', 'Brand', 'Braum', 'Chogath', 'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 'Khazix', 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'MissFortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', 'RekSai', 'Rengar', 'Sejuani', 'Shen', 'Shyvana', 'Swain', 'Tristana', 'TwistedFate', 'Varus', 'Vayne', 'Volibear', 'Warwick', 'Yasuo', 'Zed'];
     this.getIcons(championNames);
     this.getChampionData();
@@ -32,9 +34,9 @@ export default class App extends Component {
     championNames.forEach(champ => {
       fetch('https://ddragon.leagueoflegends.com/cdn/9.14.1/img/champion/'+champ+'.png').then(results => {
         urls.push(results.url);
-        this.setState({champIcons: urls});
       });
     })
+    this.setState({champIcons: urls});
   }
 
   getChampionData() {
@@ -50,6 +52,7 @@ export default class App extends Component {
         champs: champions
       })
     })
+    console.log(champions);
   }
 
   getItemData() {
@@ -98,6 +101,14 @@ export default class App extends Component {
     this.setState({itemIcons: itemIcons});
   }
 
+  handleAddToTeam(index) {
+    let championNames = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'AurelionSol', 'Blitzcrank', 'Brand', 'Braum', 'Chogath', 'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 'Khazix', 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'MissFortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', 'RekSai', 'Rengar', 'Sejuani', 'Shen', 'Shyvana', 'Swain', 'Tristana', 'TwistedFate', 'Varus', 'Vayne', 'Volibear', 'Warwick', 'Yasuo', 'Zed'];
+    let champion = championNames[index];
+    let userTeam = this.state.userTeam.concat(this.state.champs[champion]);
+    this.setState({userTeam: userTeam});
+    console.log(this.state.userTeam);
+  }
+
   render () {
     return (
       <Layout>
@@ -108,6 +119,8 @@ export default class App extends Component {
           champIcons = {this.state.champIcons}
           items = {this.state.items}
           itemIcons = {this.state.itemIcons}
+          addToTeam = {this.handleAddToTeam}
+          userTeam = {this.state.userTeam}
           />
           } />
         <Route exact path='/tierlist' component={TierList} />
