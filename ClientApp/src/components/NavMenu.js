@@ -11,12 +11,12 @@ export default class NavMenu extends React.Component {
 
       return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">TFT Builds</Navbar.Brand>
+          <Navbar.Brand href="/">TFT Builds</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link className="whiteText" href="#features">Team Builder</Nav.Link>
-              <Nav.Link className="whiteText" href="#pricing">Tier List</Nav.Link>
+              <Nav.Link className="whiteText" href="/team">Team Builder</Nav.Link>
+              <Nav.Link className="whiteText" href="/tierlist">Tier List</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
