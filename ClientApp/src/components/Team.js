@@ -6,9 +6,9 @@ import Bonus from './Bonus';
 export default function Team(props) {
 
   function addToTeam(index, origins, classes) {
-    let duplicate = checkIfDuplicate();
+    // let duplicate = checkIfDuplicate();
     props.addToTeam(index);
-    updateBonuses(duplicate);
+    updateBonuses();
   }
 
   function findImage(champ) {
@@ -22,10 +22,6 @@ export default function Team(props) {
     return result;
   }
 
-  checkIfDuplicate() {
-
-  }
-  
   function updateBonuses(duplicate) {
     let origins = {
       Demon : 0,
@@ -75,6 +71,7 @@ export default function Team(props) {
   return (
     <div>
       <h1>Team Builder</h1>
+        Your Team
       <div className='team'>
         {props.userTeam.map((champ) =>
           <img src={props.champIcons[findImage(champ)]} />
