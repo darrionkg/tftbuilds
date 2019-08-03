@@ -22,7 +22,24 @@ export default function Team(props) {
     return result;
   }
 
-  function updateBonuses(duplicate) {
+  // function checkIfDuplicate() {
+  //   let matches = 0;
+  //   for(let i = 0; i < props.userTeam.length; i++) {
+  //     for(let j = 0; j < props.userTeam.length; j++) {
+  //       if(props.userTeam[i] == props.userTeam[j]) {
+  //         matches+= 1;
+  //       }
+  //     }
+  //   }
+  //   if(matches > 1) {
+  //     return true;
+  //   }
+  //   else {
+  //     return false;
+  //   }
+  // }
+
+  function updateBonuses() {
     let origins = {
       Demon : 0,
       Dragon: 0,
@@ -50,18 +67,28 @@ export default function Team(props) {
       Shapeshifter: 0,
       Sorcerer: 0
     };
-    // fix duplicates issue
+    // for(let i = 0; i < props.userTeam.length; i++) {
+    //   for(let j = 0; j < props.userTeam[i].origin.length; j++) {
+    //     console.log(duplicate);
+    //     if(duplicate === false) {
+    //       origins[props.userTeam[i].origin[j]] += 1;
+    //     }
+    //   }
+    //   for(let k = 0; k < props.userTeam[i].class.length; k++) {
+      
+    //   }
+    // }
+
+    //props.userTeam[i].origin
+    //props.userTeam[i].class
+
+
     props.userTeam.map((champ) => {
       champ.origin.map((type) => {
-        console.log(((props.userTeam.includes(champ))))
-        if(!(duplicate)) {
           origins[type] += 1;
-        }
       })
       champ.class.map((type) => {
-        if(!(duplicate)) {
           classes[type] += 1;
-        }
       })
     })
     let bonuses = [origins, classes];
@@ -77,7 +104,9 @@ export default function Team(props) {
           <img src={props.champIcons[findImage(champ)]} />
         )}
       </div>
-      <div className='bonus'><Bonus bonuses={updateBonuses}/>
+      <div className='bonus'><Bonus
+       bonuses={updateBonuses}
+       />
       </div>
       <div className='champs'>
         {props.champIcons.map((champ, index) => 

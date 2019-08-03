@@ -16,10 +16,6 @@ class Bonus extends Component {
     this.updateBonuses = this.updateBonuses.bind(this);
   }
   
-  componentWillMount() {
-    
-  }
-  
   checkShowOrigin(amount, index, updatedKeys) {
     let type=updatedKeys[index];
     if(amount >= 1) {
@@ -70,7 +66,7 @@ class Bonus extends Component {
 }
 
 Bonus.propTypes = {
-  bonuses: PropTypes.array
+  bonuses: PropTypes.array,
 }
 
 export default Bonus;
