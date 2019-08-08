@@ -8,7 +8,7 @@ export default function Team(props) {
   function addToTeam(index, origins, classes) {
     // let duplicate = checkIfDuplicate();
     props.addToTeam(index);
-    updateBonuses();
+      updateBonuses();
   }
 
   function findImage(champ) {
@@ -22,22 +22,33 @@ export default function Team(props) {
     return result;
   }
 
-  // function checkIfDuplicate() {
-  //   let matches = 0;
-  //   for(let i = 0; i < props.userTeam.length; i++) {
-  //     for(let j = 0; j < props.userTeam.length; j++) {
-  //       if(props.userTeam[i] == props.userTeam[j]) {
-  //         matches+= 1;
-  //       }
-  //     }
-  //   }
-  //   if(matches > 1) {
-  //     return true;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
+  function checkIfDuplicate(champ) {
+    // console.log(props.userTeam);
+    let matches = 0;
+    props.userTeam.forEach((mem) => {
+      if(champ.key === mem.key) {
+        matches+= 1;
+      }
+    })
+    if(matches > 1) {
+      return true;
+    }
+    return false;
+    // let matches = 0;
+    // for(let i = 0; i < props.userTeam.length; i++) {
+    //   for(let j = 0; j < props.userTeam.length; j++) {
+    //     if(props.userTeam[i] == props.userTeam[j]) {
+    //       matches+= 1;
+    //     }
+    //   }
+    // }
+    // if(matches > 1) {
+    //   return true;
+    // }
+    // else {
+    //   return false;
+    // }
+  }
 
   function updateBonuses() {
     let origins = {
@@ -67,10 +78,11 @@ export default function Team(props) {
       Shapeshifter: 0,
       Sorcerer: 0
     };
+    let duplicate = false;
     // for(let i = 0; i < props.userTeam.length; i++) {
-    //   for(let j = 0; j < props.userTeam[i].origin.length; j++) {
-    //     console.log(duplicate);
-    //     if(duplicate === false) {
+      //   for(let j = 0; j < props.userTeam[i].origin.length; j++) {
+        //     console.log(duplicate);
+        //     if(duplicate === false) {
     //       origins[props.userTeam[i].origin[j]] += 1;
     //     }
     //   }
@@ -82,15 +94,17 @@ export default function Team(props) {
     //props.userTeam[i].origin
     //props.userTeam[i].class
 
-
     props.userTeam.map((champ) => {
-      champ.origin.map((type) => {
+      if(duplicate === false) {
+        champ.origin.map((type) => {
           origins[type] += 1;
-      })
-      champ.class.map((type) => {
+        })
+        champ.class.map((type) => {
           classes[type] += 1;
+        })
+      }
+      duplicate = checkIfDuplicate(champ)
       })
-    })
     let bonuses = [origins, classes];
     return bonuses;
   }
@@ -106,6 +120,7 @@ export default function Team(props) {
       </div>
       <div className='bonus'><Bonus
        bonuses={updateBonuses}
+       checkIfDuplicate={checkIfDuplicate}
        />
       </div>
       <div className='champs'>
@@ -113,7 +128,6 @@ export default function Team(props) {
           <img onClick={() => addToTeam(index)}  src={champ} />
           )}
       </div>
-      <h2>Origins</h2>
     </div>
   )
 }

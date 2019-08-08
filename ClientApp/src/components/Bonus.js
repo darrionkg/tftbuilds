@@ -37,28 +37,27 @@ class Bonus extends Component {
   }
 
   updateBonuses() {
-    this.props.bonuses();
-    return this.props.bonuses();
+      return this.props.bonuses();
   }
   
   render() {
     let updatedOrigin = this.updateBonuses()[0];
     const originKeys = Object.keys(updatedOrigin);
-    const originValues = Object.values(updatedOrigin)
+    const originValues = Object.values(updatedOrigin);
     let updatedClass = this.updateBonuses()[1];
     const classKeys = Object.keys(updatedClass);
-    const classValues = Object.values(updatedClass)
+    const classValues = Object.values(updatedClass);
     return (
       <div>
-        <h1> Bonuses </h1>
+        <h2>Origins</h2>
         <ul className='origin'>
           {originValues.map((amount, index) => 
-            this.checkShowOrigin(amount, index, originKeys))},
+            this.checkShowOrigin(amount, index, originKeys))}
         </ul>
         <h2>Classes</h2>
         <ul className='class'>
           {classValues.map((amount, index) => 
-            this.checkShowClass(amount, index, classKeys))},
+            this.checkShowClass(amount, index, classKeys))}
         </ul>
       </div>
     );
@@ -67,6 +66,7 @@ class Bonus extends Component {
 
 Bonus.propTypes = {
   bonuses: PropTypes.array,
+  checkIfDuplicate: PropTypes.func
 }
 
 export default Bonus;
