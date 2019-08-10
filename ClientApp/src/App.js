@@ -14,10 +14,43 @@ export default class App extends Component {
       champs: {},
       champIcons: [],
       itemIcons: [],
-      userTeam: []
+      userTeam: [],
+
+      origins: {
+        Demon : 0,
+        Dragon: 0,
+        Exile: 0,
+        Glacial: 0,
+        Imperial: 0,
+        Ninja: 0,
+        Noble: 0,
+        Phantom: 0,
+        Pirate: 0,
+        Robot: 0,
+        Void: 0,
+        Wild: 0,
+        Yordle: 0
+      },
+      classes: {
+        Assassin: 0,
+        Blademaster: 0,
+        Brawler: 0,
+        Elementalist: 0,
+        Guardian: 0,
+        Gunslinger: 0,
+        Knight: 0,
+        Ranger: 0,
+        Shapeshifter: 0,
+        Sorcerer: 0
+      }
     }
     this.handleAddToTeam = this.handleAddToTeam.bind(this);
+    this.updateOrigins = this.updateOrigins.bind(this);
+    this.updateClasses = this.updateClasses.bind(this);
+    this.updateBonuses = this.updateBonuses.bind(this);
+    this.checkIfDuplicate = this.checkIfDuplicate.bind(this);
   }
+  
 
   componentWillMount() {
     let championNames = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'AurelionSol', 'Blitzcrank', 'Brand', 'Braum', 'Chogath', 'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 'Khazix', 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'MissFortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', 'RekSai', 'Rengar', 'Sejuani', 'Shen', 'Shyvana', 'Swain', 'Tristana', 'TwistedFate', 'Varus', 'Vayne', 'Volibear', 'Warwick', 'Yasuo', 'Zed'];
@@ -105,8 +138,50 @@ export default class App extends Component {
     let championNames = ['Aatrox', 'Ahri', 'Akali', 'Anivia', 'Ashe', 'AurelionSol', 'Blitzcrank', 'Brand', 'Braum', 'Chogath', 'Darius', 'Draven', 'Elise', 'Evelynn', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Graves', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 'Khazix', 'Kindred', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'MissFortune', 'Mordekaiser', 'Morgana', 'Nidalee', 'Poppy', 'Pyke', 'RekSai', 'Rengar', 'Sejuani', 'Shen', 'Shyvana', 'Swain', 'Tristana', 'TwistedFate', 'Varus', 'Vayne', 'Volibear', 'Warwick', 'Yasuo', 'Zed'];
     let champion = championNames[index];
     let userTeam = this.state.userTeam.concat(this.state.champs[champion]);
-    this.setState({userTeam: userTeam});
-    console.log(this.state.userTeam);
+    this.setState({userTeam: userTeam}, () => {
+      this.updateBonuses(this.state.champs[champion]);
+    });
+    return this.state.champs[champion];
+  }
+
+  
+  updateOrigins(type) {
+    console.log(type);
+    let newOrigins = this.state.origins;
+    newOrigins[type] +=1;
+    console.log(newOrigins);
+
+  }
+
+  updateClasses(type) {
+    console.log(type);
+    let newClasses = this.state.classes;
+    newClasses[type] +=1;
+  }
+
+  checkIfDuplicate(champ) {
+    let matches = 0;
+    this.state.userTeam.forEach((mem) => {
+      if(champ.key === mem.key) {
+        matches+= 1;
+      }
+    })
+    if(matches > 1) {
+      return true;
+    }
+    return false;
+  }
+
+  updateBonuses(champion) {
+    let duplicate = this.checkIfDuplicate(champion)
+    if(duplicate === false) {
+      champion.origin.map((type) => {
+        this.updateOrigins(type);
+      })
+      champion.class.map((type) => {
+        this.updateClasses(type);
+      })
+    }
   }
 
   render () {
@@ -121,6 +196,8 @@ export default class App extends Component {
           itemIcons = {this.state.itemIcons}
           addToTeam = {this.handleAddToTeam}
           userTeam = {this.state.userTeam}
+          origins = {this.state.origins}
+          classes = {this.state.classes}
           />
           } />
         <Route exact path='/tierlist' component={TierList} />
