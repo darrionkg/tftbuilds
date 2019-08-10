@@ -30,6 +30,8 @@ export default function Team(props) {
         )}
       </div>
       <div className='bonus'><Bonus
+      origins = {props.origins}
+      classes = {props.classes}
        />
       </div>
       <div className='champs'>
@@ -49,7 +51,5 @@ Team.propTypes = {
   addToTeam: PropTypes.func,
   userTeam: PropTypes.array,
   origins: PropTypes.object,
-  updateOrigins: PropTypes.func,
   classes: PropTypes.object,
-  updateClasses: PropTypes.func
 }

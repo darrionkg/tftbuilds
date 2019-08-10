@@ -13,64 +13,59 @@ class Bonus extends Component {
       originBreakpoints: [],
       classBreakpoints: [],
     }
-    // this.updateBonuses = this.updateBonuses.bind(this);
   }
   
-  // checkShowOrigin(amount, index, updatedKeys) {
-  //   let type=updatedKeys[index];
-  //   if(amount >= 1) {
-  //     return <li><img src={originImages()[index]} /> {amount} {type}</li>;
-  //   }
-  //   else {
-  //     return;
-  //   }
-  // }
+  checkShowOrigin(amount, index, updatedKeys) {
+    let type=updatedKeys[index];
+    if(amount >= 1) {
+      console.log(type);
+      return <li><img src={originImages()[index]} /> {amount} {type}</li>;
+    }
+    else {
+      return;
+    }
+  }
   
-  // checkShowClass(amount, index, updatedKeys) {
-  //   let type=updatedKeys[index];
-  //   if(amount >= 1) {
-  //     return <li><img src={classImages()[index]} /> {amount} {type}</li>;
-  //   }
-  //   else {
-  //     return;
-  //   }
-  // }
-
-  // updateBonuses() {
-  //     return this.props.bonuses();
-  // }
+  checkShowClass(amount, index, updatedKeys) {
+    let type=updatedKeys[index];
+    if(amount >= 1) {
+      return <li><img src={classImages()[index]} /> {amount} {type}</li>;
+    }
+    else {
+      return;
+    }
+  }
   
   render() {
-    // let updatedOrigin = this.updateBonuses()[0];
-    // const originKeys = Object.keys(updatedOrigin);
-    // const originValues = Object.values(updatedOrigin);
-    // let updatedClass = this.updateBonuses()[1];
-    // const classKeys = Object.keys(updatedClass);
-    // const classValues = Object.values(updatedClass);
+    let updatedOrigin = this.props.origins;
+    const originKeys = Object.keys(updatedOrigin);
+    const originValues = Object.values(updatedOrigin);
+    let updatedClass = this.props.classes;
+    const classKeys = Object.keys(updatedClass);
+    const classValues = Object.values(updatedClass);
+    console.log(this.props.origins);
     return (
       <div>
         <h2>Origins</h2>
-        {/* <ul className='origin'>
+        <ul className='origin'>
           {originValues.map((amount, index) => 
             this.checkShowOrigin(amount, index, originKeys)
-            console.log('test')
             )}
         </ul>
         <h2>Classes</h2>
         <ul className='class'>
           {classValues.map((amount, index) => 
-          console.log('test')
             this.checkShowClass(amount, index, classKeys)
             )}
-        </ul> */}
+        </ul>
       </div>
     );
   }
 }
 
 Bonus.propTypes = {
-  bonuses: PropTypes.array,
-  checkIfDuplicate: PropTypes.func
+  origins: PropTypes.object,
+  classes: PropTypes.object
 }
 
 export default Bonus;
