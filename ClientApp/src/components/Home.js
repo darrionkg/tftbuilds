@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import Link from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import './Home.css';
 
 export default function Home() {
 
   return (
-    <div>
+    <div className='homeContainer'>
       <ol>
-        <Link to='/team' Team Builder/>
-        <Link to='/tierlist' Tier List/>
+        <div className='flexEven'>
+          <Link to='/team' className='pageLink'>Team Builder</Link>
+          <Link to='/tierlist' className='pageLink'>Tier List</Link>
+        </div>
       </ol>
-      <h1>HomePage</h1>
     </div>
   );
 }

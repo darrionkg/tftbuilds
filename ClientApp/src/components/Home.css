@@ -1,0 +1,19 @@
+ol {
+  padding: 0;
+}
+
+.homeContainer {
+  display: inline-block;
+}
+
+.homeContainer, .flexEven {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.pageLink {
+  font-size: 40px;
+}
